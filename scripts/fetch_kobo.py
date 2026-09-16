@@ -87,7 +87,7 @@ def fetch_all(server, uid, token):
 def choice_labels(asset):
     content = asset.get("content", {})
     lists = defaultdict(dict)
-        for ch in content.get("choices", []):
+    for ch in content.get("choices", []):
         label = ch.get("label")
         if isinstance(label, list):
             eng = next((l for l in label if str(l.get("language","")).startswith("English")), None)
@@ -96,6 +96,11 @@ def choice_labels(asset):
             label = label.get("value")
         lists[ch.get("list_name")][ch.get("name")] = label or ch.get("name")
     out = {}
+    for q in content.get("survey", []):
+        lst = q.get("select_from_list_name")
+        if lst:
+            out[q.get("name") or q.get("$autoname")] = lists.get(lst, {})
+    return out
     for q in content.get("survey", []):
         lst = q.get("select_from_list_name")
         if lst:
