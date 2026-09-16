@@ -220,42 +220,30 @@ def aggregate(rows, labels, now=None):
     }
 
 
-def main():
-    token = os.environ.get("KOBO_TOKEN")
-    uid = os.environ.get("KOBO_ASSET_UID")
-    server = (os.environ.get("KOBO_SERVER") or "https://kf.kobotoolbox.org").rstrip("/")
-    if not token or not uid:
-        sys.exit("Set KOBO_TOKEN and KOBO_ASSET_UID before running.")
-
-    print(f"Server: {server}")
-    print(f"Asset UID: {uid}")
-    print("Fetching from Kobo...")
-
-    asset, rows = fetch_all(server, uid, token)
-    print(f"Fetched {len(rows)} submissions.")
-
-    if DEBUG and rows:
-        print("\n--- DEBUG: available field names in first record ---")
-        for k in sorted(rows[0].keys())[:100]:
-            print(f"  {k}")
-        print("--- end debug ---\n")
-
-    data = aggregate(rows, choice_labels(asset))
-
-    out = os.path.join(os.path.dirname(__file__), "..", "data.json")
-    with open(out, "w", encoding="utf-8") as f:
-        json.dump(data, f, ensure_ascii=False, indent=1)
-    print(f"\nWrote {len(rows)} submissions to data.json")
-
-    print("\nSummary:")
-    print(f"  Total: {data['total']}")
-    print(f"  Divisions with data: {sum(1 for v in data['divisions'].values() if v)}")
-    print(f"  Location labels: {len(data['location']['labels'])}")
-    print(f"  Ownership labels: {len(data['ownership']['labels'])}")
-    print(f"  Production labels: {len(data['production']['labels'])}")
-    print(f"  Exporter labels: {len(data['exporter']['labels'])}")
-    print(f"  Expansion labels: {len(data['expansion']['labels'])}")
-
-
-if __name__ == "__main__":
-    main()
+def choice_labels(asset):
+    content = asset.get("content", {})
+    lists = defaultdict(dict)
+    for ch in content.get("choices", []):
+        label = ch.get("label")
+        # Kobo may return label as a string, a dict, or a list of dicts/strings
+        if isinstance(label, list):
+            # Try to find the English entry; fall back to the first entry
+            picked = None
+            for l in label:
+                if isinstance(l, dict) and str(l.get("language","")).startswith("English"):
+                    picked = l.get("value"); break
+                if isinstance(l, str) and l:
+                    picked = l; break
+            if not picked and label:
+                first = label[0]
+                picked = first.get("value") if isinstance(first, dict) else first
+            label = picked
+        elif isinstance(label, dict):
+            label = label.get("value")
+        lists[ch.get("list_name")][ch.get("name")] = label or ch.get("name")
+    out = {}
+    for q in content.get("survey", []):
+        lst = q.get("select_from_list_name")
+        if lst:
+            out[q.get("name") or q.get("$autoname")] = lists.get(lst, {})
+    return out
