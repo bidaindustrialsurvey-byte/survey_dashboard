@@ -1,13 +1,5 @@
 """
 Pull submissions from KoboToolbox and write aggregated counts to data.json.
-
-Only totals and counts leave this script. No firm names, registration
-numbers or other firm-level details are written to data.json.
-
-Environment variables (set as GitHub Secrets):
-  KOBO_TOKEN       API token from your Kobo account settings
-  KOBO_ASSET_UID   form UID, the part after /forms/ in the form URL
-  KOBO_SERVER      optional, default https://kf.kobotoolbox.org
 """
 import json
 import os
@@ -81,9 +73,11 @@ def choice_labels(asset):
             picked = None
             for l in label:
                 if isinstance(l, dict) and str(l.get("language","")).startswith("English"):
-                    picked = l.get("value"); break
+                    picked = l.get("value")
+                    break
                 if isinstance(l, str) and l:
-                    picked = l; break
+                    picked = l
+                    break
             if not picked and label:
                 first = label[0]
                 picked = first.get("value") if isinstance(first, dict) else first
