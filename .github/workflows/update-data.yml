@@ -5,6 +5,10 @@ on:
     - cron: "*/30 * * * *"
   workflow_dispatch:
 
+concurrency:
+  group: update-dashboard
+  cancel-in-progress: false
+
 permissions:
   contents: write
 
@@ -13,6 +17,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - uses: actions/setup-python@v5
         with:
@@ -29,11 +35,12 @@ jobs:
           KOBO_DEBUG: "1"
         run: python scripts/fetch_kobo.py
 
-      - name: Force push data.json
+      - name: Commit data.json if it changed
         run: |
           git config user.name "dashboard-bot"
           git config user.email "actions@users.noreply.github.com"
+          git fetch origin main
+          git reset --soft origin/main
           git add data.json
-          git diff --cached --quiet && exit 0
-          git commit -m "Update dashboard data"
-          git push --force origin main
+          git diff --cached --quiet || git commit -m "Update dashboard data [skip ci]"
+          git push
