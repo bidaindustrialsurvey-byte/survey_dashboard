@@ -89,9 +89,17 @@ def choice_labels(asset):
     lists = defaultdict(dict)
     for ch in content.get("choices", []):
         label = ch.get("label")
-        if isinstance(label, list):
-            eng = next((l for l in label if str(l.get("language","")).startswith("English")), None)
-            label = (eng or label[0]).get("value") if (eng or label) else None
+                if isinstance(label, list):
+            picked = None
+            for l in label:
+                if isinstance(l, dict) and str(l.get("language","")).startswith("English"):
+                    picked = l.get("value"); break
+                if isinstance(l, str) and l:
+                    picked = l; break
+            if not picked and label:
+                first = label[0]
+                picked = first.get("value") if isinstance(first, dict) else first
+            label = picked
         elif isinstance(label, dict):
             label = label.get("value")
         lists[ch.get("list_name")][ch.get("name")] = label or ch.get("name")
