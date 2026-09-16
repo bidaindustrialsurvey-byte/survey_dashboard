@@ -1,5 +1,5 @@
 {
- "updated_at": "2026-09-16T15:40:35.578220+06:00",
+ "updated_at": "2026-09-16T16:38:46.394274+06:00",
  "source": "kobo",
  "total": 210,
  "divisions": {
@@ -75,16 +75,8 @@
   ]
  },
  "exporter": {
-  "labels": [
-   "1",
-   "2",
-   "3"
-  ],
-  "values": [
-   58,
-   24,
-   6
-  ]
+  "labels": [],
+  "values": []
  },
  "expansion": {
   "labels": [
