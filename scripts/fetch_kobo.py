@@ -226,9 +226,7 @@ def aggregate(rows, labels, now=None):
         "workforce": wf,
         "timeline": {"dates": [d.isoformat() for d in dates], "counts": [per_day[d] for d in dates]},
     }
-
-
-def choice_labels(asset):
+  def choice_labels(asset):
     content = asset.get("content", {})
     lists = defaultdict(dict)
     for ch in content.get("choices", []):
