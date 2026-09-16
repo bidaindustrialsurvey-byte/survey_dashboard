@@ -17,25 +17,17 @@ from datetime import datetime, timedelta, timezone
 
 import requests
 
-# ------------------------------------------------------------------
-# FIELD MAPPING — using the real XML names from your XLSForm
-# ------------------------------------------------------------------
 FIELDS = {
-    # Uses factory division if present, else interview division
-    "division":      "Q2_2_1_a",              # a. Division (factory)
-    "division_alt":  "Q2_1_2_a",              # 2.1.2.a Interview division (fallback)
-    "location":      "Q2_5_1",                # 2.5.1 Location of industry
-    "reg_authority": "Q2_6_1",                # 2.6.1 Host Authority (IPA)
-    "ownership":     "Q2_8_2",                # 2.8.2 Type of private enterprise
-    "production":    "Q2_7_1",                # 2.7.1 Status of production
-    "exporter":      "main/main7/grp7/Q7_2_exporter_type",
-    "expansion":     "Q11_1",                 # 11.1 Plan to expand
+    "division":      "Q2_2_1_a",
+    "division_alt":  "Q2_1_2_a",
+    "location":      "Q2_5_1",
+    "reg_authority": "Q2_6_1",
+    "ownership":     "Q2_8_2",
+    "production":    "Q2_7_1",
+    "exporter":      "Q7_2_exporter_type",
+    "expansion":     "Q11_1",
 }
 
-# Optional: additional info for BIDA/ADM-style labeling
-# (used only to look up choice labels)
-
-# Bangladeshi workforce by employment type and gender
 WORKFORCE = {
     "Regular":     {"male": "q3a21a_bd_male",  "female": "q3a21b_bd_female",  "third": "q3a21c_bd_thirdg"},
     "Contractual": {"male": "q3a22a_bd_male",  "female": "q3a22b_bd_female",  "third": "q3a22c_bd_thirdg"},
@@ -45,11 +37,10 @@ WORKFORCE = {
 }
 
 MAX_HISTORY_DAYS = 400
-TZ = timezone(timedelta(hours=6))  # Asia/Dhaka
+TZ = timezone(timedelta(hours=6))
 
 DIVISIONS = ["Dhaka", "Chattogram", "Khulna", "Rajshahi", "Sylhet", "Barishal", "Mymensingh", "Rangpur"]
 
-# Kobo choice codes for divisions (from choices sheet, list "fac_division")
 DIVISION_CODE_TO_NAME = {
     "10": "Barishal",
     "20": "Chattogram",
@@ -64,9 +55,6 @@ DIVISION_CODE_TO_NAME = {
 DEBUG = os.environ.get("KOBO_DEBUG") == "1"
 
 
-# ------------------------------------------------------------------
-# KOBO API
-# ------------------------------------------------------------------
 def kobo_get(url, token):
     r = requests.get(url, headers={"Authorization": f"Token {token}"}, timeout=60)
     r.raise_for_status()
@@ -89,7 +77,7 @@ def choice_labels(asset):
     lists = defaultdict(dict)
     for ch in content.get("choices", []):
         label = ch.get("label")
-                if isinstance(label, list):
+        if isinstance(label, list):
             picked = None
             for l in label:
                 if isinstance(l, dict) and str(l.get("language","")).startswith("English"):
@@ -109,23 +97,14 @@ def choice_labels(asset):
         if lst:
             out[q.get("name") or q.get("$autoname")] = lists.get(lst, {})
     return out
-    for q in content.get("survey", []):
-        lst = q.get("select_from_list_name")
-        if lst:
-            out[q.get("name") or q.get("$autoname")] = lists.get(lst, {})
-    return out
 
 
-# ------------------------------------------------------------------
-# AGGREGATION
-# ------------------------------------------------------------------
 def value(row, name):
     if name in row:
         return row[name]
     for k, v in row.items():
         if k.endswith("/" + name):
             return v
-    # Fallback: fuzzy match
     target = "".join(c.lower() for c in name if c.isalnum())
     for k, v in row.items():
         if "".join(c.lower() for c in k if c.isalnum()) == target:
@@ -141,7 +120,6 @@ def num(x):
 
 
 def _split_multi(v):
-    """Kobo returns multi-select as a space-separated string of codes."""
     if v in (None, ""):
         return []
     return str(v).split()
@@ -155,7 +133,6 @@ def counts(rows, field, labels):
         if v in (None, ""):
             continue
         hits += 1
-        # Multi-select: split and count each code
         parts = _split_multi(v)
         if len(parts) > 1:
             for p in parts:
@@ -182,7 +159,6 @@ def aggregate(rows, labels, now=None):
     now = now or datetime.now(TZ)
     today = now.date()
 
-    # Division: prefer factory division, fall back to interview division
     div = {d: 0 for d in DIVISIONS}
     div_raw = labels.get(FIELDS["division"], {})
     div_alt_raw = labels.get(FIELDS["division_alt"], {})
@@ -196,7 +172,6 @@ def aggregate(rows, labels, now=None):
         if name in div:
             div[name] += 1
 
-    # Daily counts
     per_day = Counter()
     for r in rows:
         t = parse_time(r.get("_submission_time"))
@@ -206,7 +181,6 @@ def aggregate(rows, labels, now=None):
     first = max(first, today - timedelta(days=MAX_HISTORY_DAYS - 1))
     dates = [first + timedelta(days=i) for i in range((today - first).days + 1)]
 
-    # Workforce (Bangladeshi)
     wf = {"categories": list(WORKFORCE), "male": [], "female": [], "third": []}
     for cat, g in WORKFORCE.items():
         for k in ("male", "female", "third"):
@@ -226,30 +200,44 @@ def aggregate(rows, labels, now=None):
         "workforce": wf,
         "timeline": {"dates": [d.isoformat() for d in dates], "counts": [per_day[d] for d in dates]},
     }
-  def choice_labels(asset):
-    content = asset.get("content", {})
-    lists = defaultdict(dict)
-    for ch in content.get("choices", []):
-        label = ch.get("label")
-        # Kobo may return label as a string, a dict, or a list of dicts/strings
-        if isinstance(label, list):
-            # Try to find the English entry; fall back to the first entry
-            picked = None
-            for l in label:
-                if isinstance(l, dict) and str(l.get("language","")).startswith("English"):
-                    picked = l.get("value"); break
-                if isinstance(l, str) and l:
-                    picked = l; break
-            if not picked and label:
-                first = label[0]
-                picked = first.get("value") if isinstance(first, dict) else first
-            label = picked
-        elif isinstance(label, dict):
-            label = label.get("value")
-        lists[ch.get("list_name")][ch.get("name")] = label or ch.get("name")
-    out = {}
-    for q in content.get("survey", []):
-        lst = q.get("select_from_list_name")
-        if lst:
-            out[q.get("name") or q.get("$autoname")] = lists.get(lst, {})
-    return out
+
+
+def main():
+    token = os.environ.get("KOBO_TOKEN")
+    uid = os.environ.get("KOBO_ASSET_UID")
+    server = (os.environ.get("KOBO_SERVER") or "https://kf.kobotoolbox.org").rstrip("/")
+    if not token or not uid:
+        sys.exit("Set KOBO_TOKEN and KOBO_ASSET_UID before running.")
+
+    print(f"Server: {server}")
+    print(f"Asset UID: {uid}")
+    print("Fetching from Kobo...")
+
+    asset, rows = fetch_all(server, uid, token)
+    print(f"Fetched {len(rows)} submissions.")
+
+    if DEBUG and rows:
+        print("\n--- DEBUG: available field names in first record ---")
+        for k in sorted(rows[0].keys())[:100]:
+            print(f"  {k}")
+        print("--- end debug ---\n")
+
+    data = aggregate(rows, choice_labels(asset))
+
+    out = os.path.join(os.path.dirname(__file__), "..", "data.json")
+    with open(out, "w", encoding="utf-8") as f:
+        json.dump(data, f, ensure_ascii=False, indent=1)
+    print(f"\nWrote {len(rows)} submissions to data.json")
+
+    print("\nSummary:")
+    print(f"  Total: {data['total']}")
+    print(f"  Divisions with data: {sum(1 for v in data['divisions'].values() if v)}")
+    print(f"  Location labels: {len(data['location']['labels'])}")
+    print(f"  Ownership labels: {len(data['ownership']['labels'])}")
+    print(f"  Production labels: {len(data['production']['labels'])}")
+    print(f"  Exporter labels: {len(data['exporter']['labels'])}")
+    print(f"  Expansion labels: {len(data['expansion']['labels'])}")
+
+
+if __name__ == "__main__":
+    main()
