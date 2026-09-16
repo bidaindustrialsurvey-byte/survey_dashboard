@@ -28,7 +28,7 @@ FIELDS = {
     "reg_authority": "Q2_6_1",                # 2.6.1 Host Authority (IPA)
     "ownership":     "Q2_8_2",                # 2.8.2 Type of private enterprise
     "production":    "Q2_7_1",                # 2.7.1 Status of production
-    "exporter":      "Q7_2_exporter_type",    # 7.2 Type of exporter (multi-select)
+    "exporter":      "main/main7/grp7/Q7_2_exporter_type",
     "expansion":     "Q11_1",                 # 11.1 Plan to expand
 }
 
