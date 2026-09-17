@@ -1,0 +1,51 @@
+{
+ "updated_at": "2026-09-17T14:48:34.301563+06:00",
+ "source": "kobo",
+ "total": 0,
+ "divisions": {
+  "Dhaka": 0,
+  "Chattogram": 0,
+  "Khulna": 0,
+  "Rajshahi": 0,
+  "Sylhet": 0,
+  "Barishal": 0,
+  "Mymensingh": 0,
+  "Rangpur": 0
+ },
+ "location": {
+  "labels": {
+   "en": [],
+   "bn": []
+  },
+  "values": []
+ },
+ "reg_authority": {
+  "labels": {
+   "en": [],
+   "bn": []
+  },
+  "values": []
+ },
+ "ownership": {
+  "labels": {
+   "en": [],
+   "bn": []
+  },
+  "values": []
+ },
+ "production": {
+  "labels": {
+   "en": [],
+   "bn": []
+  },
+  "values": []
+ },
+ "timeline": {
+  "dates": [
+   "2026-09-17"
+  ],
+  "counts": [
+   0
+  ]
+ }
+}
