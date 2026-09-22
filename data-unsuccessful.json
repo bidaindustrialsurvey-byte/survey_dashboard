@@ -1,0 +1,17 @@
+{
+ "updated_at": "2026-09-22T16:06:23.445533+06:00",
+ "source": "google-sheet",
+ "total": 181,
+ "reasons": {
+  "labels": [
+   "Closed",
+   "Not Found"
+  ],
+  "values": [
+   137,
+   44
+  ]
+ },
+ "divisions": null,
+ "unplaced": 0
+}
