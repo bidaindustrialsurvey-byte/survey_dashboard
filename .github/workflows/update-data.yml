@@ -2,12 +2,8 @@ name: Update dashboard data
 
 on:
   schedule:
-    - cron: "*/30 * * * *"
+    - cron: "*/30 * * * *"   # every 30 minutes
   workflow_dispatch:
-
-concurrency:
-  group: update-dashboard
-  cancel-in-progress: false
 
 permissions:
   contents: write
@@ -25,31 +21,18 @@ jobs:
       - name: Install dependencies
         run: pip install requests
 
-      - name: Census of Foreign/JV Industries
+      - name: Pull from Kobo and aggregate
         env:
           KOBO_TOKEN: ${{ secrets.KOBO_TOKEN }}
           KOBO_ASSET_UID: ${{ secrets.KOBO_ASSET_UID }}
           KOBO_SERVER: https://kf.kobotoolbox.org
           KOBO_DEBUG: "1"
-        run: python scripts/fetch_kobo.py census
+        run: python scripts/fetch_kobo.py
 
-      - name: Survey of Industries (same Kobo account)
-        env:
-          KOBO_TOKEN: ${{ secrets.KOBO_TOKEN }}
-          KOBO_ASSET_UID_SURVEY: ${{ secrets.KOBO_ASSET_UID_SURVEY }}
-          KOBO_SERVER: https://kf.kobotoolbox.org
-          KOBO_DEBUG: "1"
-        run: python scripts/fetch_kobo.py survey
-
-      # No "[skip ci]" in the message: that tag stops GitHub Pages
-      # from redeploying, which is why the site showed old data.
-      - name: Commit data files if they changed
+      - name: Commit data.json if it changed
         run: |
           git config user.name "dashboard-bot"
           git config user.email "actions@users.noreply.github.com"
           git add data.json
-          [ -f data-survey.json ] && git add data-survey.json
-          git diff --cached --quiet && exit 0
-          git commit -m "Update dashboard data"
-          git pull --rebase origin main
-          git push origin main
+          git diff --cached --quiet || git commit -m "Update dashboard data [skip ci]"
+          git push
