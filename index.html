@@ -45,6 +45,16 @@ button,input{font:inherit;color:inherit}
 canvas{display:block}
 :focus-visible{outline:3px solid var(--river);outline-offset:2px}
 [hidden]{display:none!important}
+.about{border-radius:16px;border:1px solid var(--line);background:var(--surface);padding:30px 32px 32px;display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:40px}
+.about h3{font-size:26px;line-height:1.25;max-width:40rem}
+.about .body p{font-family:var(--serif);font-size:18px;line-height:1.7;color:var(--ink);max-width:68ch;margin-top:16px}
+.facts{display:flex;flex-direction:column;gap:18px}
+.facts dt{font-size:14px;font-weight:700;color:var(--muted)}
+.facts dd{font-family:var(--serif);font-size:19px;font-weight:600;line-height:1.35;margin-top:2px}
+.timebar{height:10px;border-radius:5px;background:var(--line);overflow:hidden;margin-top:10px}
+.timebar i{display:block;height:100%;background:var(--mint);border-radius:5px}
+.timenote{font-size:14px;color:var(--muted);margin-top:6px}
+@media (max-width:1180px){ .about{grid-template-columns:1fr;gap:24px} }
 .num{font-family:var(--serif);font-variant-numeric:lining-nums tabular-nums}
 
 /* ---------- PARTNER LOGOS (official, unaltered) ---------- */
@@ -208,10 +218,10 @@ footer{margin-top:40px;color:var(--muted);font-size:14px;display:flex;justify-co
   <div class="login-stage">
     <canvas id="loginCanvas" aria-hidden="true"></canvas>
     <div class="login-logos">
-      <div class="partners"><img data-logo="invest" alt="Invest Bangladesh (BIDA)"><span class="sep"></span><img data-logo="adb" alt="Asian Development Bank"><span class="sep"></span><img data-logo="sanem" alt="SANEM"></div>
+      <div class="partners"><img data-logo="invest" alt="Invest Bangladesh Authority (formerly BIDA)"><span class="sep"></span><img data-logo="adb" alt="Asian Development Bank"><span class="sep"></span><img data-logo="sanem" alt="SANEM"></div>
     </div>
     <div class="login-copy">
-      <p class="org">SANEM for BIDA and the Asian Development Bank</p>
+      <p class="org">SANEM for Invest Bangladesh Authority (formerly BIDA) and the Asian Development Bank</p>
       <h1>Survey of Industries in Bangladesh</h1>
       <p class="lede">Field progress for the enterprise survey, updated from KoboToolbox submissions.</p>
     </div>
@@ -222,7 +232,7 @@ footer{margin-top:40px;color:var(--muted);font-size:14px;display:flex;justify-co
       <p class="hint">Choose your account and enter its password.</p>
       <div class="accounts" role="group" aria-label="Account">
         <button type="button" class="account" data-user="sanem" aria-pressed="true"><span class="mk"><img data-logo="sanem" alt=""></span><span><b>SANEM</b><small>Survey team</small></span></button>
-        <button type="button" class="account" data-user="invest" aria-pressed="false"><span class="mk"><img data-logo="invest" alt=""></span><span><b>Invest Bangladesh</b><small>BIDA</small></span></button>
+        <button type="button" class="account" data-user="invest" aria-pressed="false"><span class="mk"><img data-logo="invest" alt=""></span><span><b>Invest Bangladesh</b><small>Formerly BIDA</small></span></button>
       </div>
       <div class="field">
         <label for="pw">Password</label>
@@ -236,7 +246,7 @@ footer{margin-top:40px;color:var(--muted);font-size:14px;display:flex;justify-co
 
 <!-- ============ CHOOSE DATASET ============ -->
 <div class="chooser" id="chooser" hidden>
-  <div class="partners"><img data-logo="invest" alt="Invest Bangladesh (BIDA)"><span class="sep"></span><img data-logo="adb" alt="Asian Development Bank"><span class="sep"></span><img data-logo="sanem" alt="SANEM"></div>
+  <div class="partners"><img data-logo="invest" alt="Invest Bangladesh Authority (formerly BIDA)"><span class="sep"></span><img data-logo="adb" alt="Asian Development Bank"><span class="sep"></span><img data-logo="sanem" alt="SANEM"></div>
   <div class="choices">
     <button class="choice census" data-ds="census" type="button">Census</button>
     <button class="choice survey" data-ds="survey" type="button">Survey</button>
@@ -255,12 +265,13 @@ footer{margin-top:40px;color:var(--muted);font-size:14px;display:flex;justify-co
     <a href="#firms"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21V10l6 4V10l6 4V4h6v17z"/></svg><span>Firm Profile</span></a>
     <a href="#unsuccessful" class="census-only"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M8.5 8.5l7 7M15.5 8.5l-7 7"/></svg><span>Unsuccessful Surveys</span></a>
     <a href="#timeline"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 17l5-6 4 3 7-9"/><path d="M3 21h18"/></svg><span>Over Time</span></a>
+    <a href="#about"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg><span>About the Project</span></a>
   </nav>
 
   <main class="main">
     <header class="top">
       <div class="brand">
-        <div class="partners"><img data-logo="invest" alt="Invest Bangladesh (BIDA)"><span class="sep"></span><img data-logo="adb" alt="Asian Development Bank"><span class="sep"></span><img data-logo="sanem" alt="SANEM"></div>
+        <div class="partners"><img data-logo="invest" alt="Invest Bangladesh Authority (formerly BIDA)"><span class="sep"></span><img data-logo="adb" alt="Asian Development Bank"><span class="sep"></span><img data-logo="sanem" alt="SANEM"></div>
         <div>
           <h1>Survey of Industries 2026</h1>
           <p class="sub" id="dsSub"></p>
@@ -309,6 +320,23 @@ footer{margin-top:40px;color:var(--muted);font-size:14px;display:flex;justify-co
     <h2 class="sec-title" id="timeline">Submissions Over Time <small id="tlSub"></small></h2>
     <section class="grid">
       <article class="panel s12" data-chart="timeline"><header><p id="tlNote"></p><div class="ctrls"><div class="seg per"><button data-p="daily">Daily</button><button data-p="weekly">Weekly</button><button data-p="monthly">Monthly</button></div><div class="seg ty"><button data-t="line">Line</button><button data-t="bar">Bar</button><button data-t="area">Area</button></div><div class="seg dim"><button data-d="2d">2D</button><button data-d="3d">3D</button></div></div></header><div class="plot tall" id="c-timeline"></div></article>
+    </section>
+
+    <h2 class="sec-title" id="about">About the Project</h2>
+    <section class="about">
+      <div class="body">
+        <h3>Knowledge Support for LDC Graduation and Improving Investment Climate: Consulting Firm for Conducting Survey of Industries in Bangladesh</h3>
+        <p>As Bangladesh approaches graduation from the Least Developed Country category, the quality of evidence underpinning investment policy has never mattered more. Yet investment-related information in the country remains scattered across numerous agencies, recorded in different formats and rarely reconciled, leaving no single, authoritative picture of who is investing, in which sectors, and where.</p>
+        <p>With the support of the Asian Development Bank (ADB), Invest Bangladesh Authority (formerly the Bangladesh Investment Development Authority, BIDA) has commissioned SANEM to build a comprehensive, One-Stop-Service-ready investment information system covering the manufacturing and services sectors. Over an eight-month engagement, the project gathers and reconciles enterprise records from investment promotion agencies, regulators, chambers, and associations; verifies them through a complete on-site census of foreign and joint-venture enterprises and a statistically representative survey of domestic firms; and consolidates the result into a standardised, OSS-integrated database.</p>
+        <p>Beyond the database, the project delivers analytical reports and policy briefs on Bangladesh’s investment landscape, alongside a national investment compendium that brings together the relevant acts, rules, and regulations into a single, user-friendly reference for investors and policymakers. National in reach and covering all eight divisions, the initiative is designed to leave Invest Bangladesh with not only reliable data but the systems and capacity to keep it current, strengthening the evidence base for investment promotion in the years that follow graduation.</p>
+      </div>
+      <dl class="facts">
+        <div><dt>Collaboration</dt><dd>Asian Development Bank (ADB) and Invest Bangladesh Authority (formerly BIDA)</dd></div>
+        <div><dt>Implemented By</dt><dd>South Asian Network on Economic Modeling (SANEM)</dd></div>
+        <div><dt>Starting Date</dt><dd>April 6, 2026</dd></div>
+        <div><dt>Completion Date</dt><dd>November 16, 2026</dd></div>
+        <div><dt>Project Timeline</dt><dd id="projDay"></dd><div class="timebar"><i id="projBar"></i></div><p class="timenote" id="projNote"></p></div>
+      </dl>
     </section>
 
     <footer>
@@ -668,19 +696,13 @@ function categorical2D(block, type, opts){
       animationDuration:600,
     };
   }
-  const rose = type==='rose';
+  const rose = type==='rose', many = n>3;
   return {
     textStyle:baseText(), tooltip:tip({trigger:'item', formatter:p=>`${p.name}<br><b>${fmt(p.value)}</b> ${unit} ${pctOf(p.value,total)}`}),
-    legend:{show:false},
-    title: rose ? undefined : {text:fmt(total), subtext:unit, left:'center', top:'41%', textStyle:{color:css('--ink'), fontFamily:SERIF, fontSize:30, fontWeight:700}, subtextStyle:{color:css('--muted'), fontSize:14, fontWeight:600, fontFamily:FONT}, itemGap:2},
-    series:[{type:'pie', radius: rose ? ['8%', '74%'] : (n>4 ? ['36%','54%'] : ['46%','66%']), center:['50%','50%'], roseType: rose?'area':false,
-      data:items, itemStyle:{borderColor:css('--surface'), borderWidth:3, borderRadius:rose?5:4},
-      avoidLabelOverlap:true,
-      label:{show:true, position:'outside', color:css('--ink'), fontFamily:FONT, lineHeight:19,
-             overflow:'none', formatter:p=>`{n|${wrapLabel(p.name, n>4 ? 18 : 26)}}\n{v|${fmt(p.value)} (${Math.round(p.percent)}%)}`,
-             rich:{n:{fontSize:n>4?14:15, fontWeight:600, color:css('--ink'), fontFamily:FONT, lineHeight:18}, v:{fontSize:n>4?14:15, fontWeight:700, color:css('--muted'), fontFamily:FONT}}},
-      labelLine:{show:true, length:12, length2:14, lineStyle:{color:css('--line'), width:1.5}},
-      emphasis:{scale:true, scaleSize:7}}],
+    legend:legend({type:'plain', bottom:0, left:'center'}),
+    title: rose ? undefined : {text:fmt(total), subtext:unit, left:'center', top: many?'24%':'33%', textStyle:{color:css('--ink'), fontFamily:SERIF, fontSize:30, fontWeight:700}, subtextStyle:{color:css('--muted'), fontSize:14, fontWeight:600, fontFamily:FONT}, itemGap:2},
+    series:[{type:'pie', radius: rose ? ['12%', many?'58%':'70%'] : (many?['42%','60%']:['52%','72%']), center:['50%', many?'35%':'42%'], roseType: rose?'area':false,
+      data:items, itemStyle:{borderColor:css('--surface'), borderWidth:3, borderRadius:rose?5:4}, label:{show:false}, emphasis:{scale:true, scaleSize:7}}],
     animationDuration:600,
   };
 }
@@ -754,13 +776,13 @@ function categorical3D(block, type, opts){
   const unit = opts.unit || 'firms';
   if(!block || !block.values || !block.values.reduce((a,b)=>a+b,0)) return emptyOption();
   const pal=palette(), total=block.values.reduce((a,b)=>a+b,0)||1, vmax=Math.max(...block.values,1), noLeg=!!opts.noLegend;
-  const labelRow = noLeg ? { graphic: [{ type:'text', left:'center', bottom:8, style:{
+  const labelRow = false ? { graphic: [{ type:'text', left:'center', bottom:8, style:{
       rich: Object.fromEntries(block.labels.map((l,i)=>[`c${i}`, {fill:pal[i%pal.length], font:`700 15px ${FONT}`}])),
       text: block.labels.map((l,i)=>`{c${i}|■ ${l}  ${fmt(block.values[i])} ${pctOf(block.values[i],total)}}`).join('      ') } }] } : {};
   const single = !!opts.single;
   if(type==='bar') return Object.assign({
     tooltip:tip({formatter:p=>`${p.seriesName}<br><b>${fmt(p.value[2])}</b> ${unit} (${(p.value[2]/total*100).toFixed(1)}%)`}),
-    legend: (noLeg || single) ? {show:false} : legend({bottom:0, left:'center', data:block.labels, formatter:nm=>{ const i=block.labels.indexOf(nm); return `${nm}  ${fmt(block.values[i])} ${pctOf(block.values[i],total)}`; }}),
+    legend: single ? {show:false} : legend({bottom:0, left:'center', data:block.labels}),
     xAxis3D:{type:'category', data: single ? [''] : block.labels, name:'', axisLabel:{show:false}},
     yAxis3D:{type:'category', data: single ? block.labels : [''], name:'', axisLabel: single ? {show:true, interval:0, textStyle:{color:css('--ink'), fontSize:13, fontWeight:600, fontFamily:FONT}} : {show:false}},
     zAxis3D:{type:'value', name:'', axisLabel:{textStyle:{color:css('--muted'), fontSize:12}, formatter:v=>v>=1000?(v/1000)+'k':v}},
@@ -781,9 +803,9 @@ function categorical3D(block, type, opts){
   });
   return Object.assign({
     tooltip:tip({formatter:p=>{ const i=block.labels.indexOf(p.seriesName); return `${p.seriesName}<br><b>${fmt(block.values[i])}</b> ${unit} (${(block.values[i]/total*100).toFixed(1)}%)`; }}),
-    legend: noLeg ? {show:false} : legend({bottom:0, left:'center', data:block.labels, formatter:nm=>{ const i=block.labels.indexOf(nm); return `${nm}  ${fmt(block.values[i])} ${pctOf(block.values[i],total)}`; }}),
+    legend: legend({bottom:0, left:'center', data:block.labels}),
     xAxis3D:{min:-1.25, max:1.25}, yAxis3D:{min:-1.25, max:1.25}, zAxis3D:{min:-1, max:rose?2:1},
-    grid3D:grid3D({show:false, boxWidth:100, boxDepth:100, boxHeight:rose?34:18, top: noLeg ? -25 : (block.labels.length>3 ? -40 : -20), viewControl:{alpha:32, beta:35, distance:rose?215:180, zoomSensitivity:0, panSensitivity:0}}),
+    grid3D:grid3D({show:false, boxWidth:100, boxDepth:100, boxHeight:rose?34:18, top: block.labels.length>3 ? -40 : -20, viewControl:{alpha:32, beta:35, distance:rose?215:180, zoomSensitivity:0, panSensitivity:0}}),
     series,
   }, labelRow);
 }
@@ -934,12 +956,20 @@ async function showDataset(ds){
   if(seq!==loadSeq) return;
   render(d, mode);
 }
+function projectProgress(){
+  const start=new Date('2026-04-06T00:00:00+06:00'), end=new Date('2026-11-16T23:59:59+06:00'), now=new Date();
+  const totalDays=Math.round((end-start)/864e5), day=Math.min(totalDays, Math.max(0, Math.floor((now-start)/864e5)+1));
+  const left=Math.max(0, Math.ceil((end-now)/864e5));
+  $('#projDay').textContent = now<start ? 'Not started yet' : now>end ? 'Completed' : `Day ${fmt(day)} of ${fmt(totalDays)}`;
+  $('#projBar').style.width = Math.round(day/totalDays*100)+'%';
+  $('#projNote').textContent = now>end ? '' : `${Math.round(day/totalDays*100)}% of the time elapsed, ${fmt(left)} days to completion`;
+}
 function setMe(){
   const acc = ACCOUNTS[store.get('soi.user')] || ACCOUNTS.sanem;
   $('#meName').textContent = acc.name; $('#meAvatar').textContent = acc.initials;
 }
 function afterLogin(){
-  $('#login').hidden=true; LoginScene.stop(); setMe();
+  $('#login').hidden=true; LoginScene.stop(); setMe(); projectProgress();
   const ds = store.get('soi.ds');
   if(DATASETS[ds]) enterApp(ds); else { $('#chooser').hidden=false; }
 }
