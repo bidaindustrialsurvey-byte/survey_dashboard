@@ -1,7 +1,7 @@
 {
- "updated_at": "2026-09-23T16:43:40.616939+06:00",
+ "updated_at": "2026-09-23T17:15:30.816909+06:00",
  "source": "google-sheet",
- "total": 235,
+ "total": 228,
  "reasons": {
   "labels": [
    "Closed",
@@ -9,9 +9,9 @@
    "Rejected"
   ],
   "values": [
-   158,
+   150,
    69,
-   8
+   9
   ]
  },
  "divisions": null,
