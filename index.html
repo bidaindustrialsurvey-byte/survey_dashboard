@@ -188,6 +188,55 @@ section,h2{scroll-margin-top:18px}
 .side-panel{align-self:stretch}
 .side-panel .plot{flex:1;height:auto;min-height:420px}
 
+/* ---------- EDITOR ---------- */
+.lay-hidden{display:none!important}
+body.editing [data-block]{outline:2px dashed var(--river);outline-offset:3px;position:relative}
+body.editing [data-block].drag-over{outline:3px solid var(--mint)}
+body.editing [data-block].dragging{opacity:.45}
+body.editing [data-edit]{outline:1px dashed var(--accent);outline-offset:2px;cursor:text;border-radius:3px}
+body.editing [data-edit]:focus{outline:2px solid var(--accent);background:color-mix(in srgb,var(--accent) 12%,transparent)}
+.blocktools{position:absolute;top:6px;right:8px;z-index:12;display:none;gap:4px;background:var(--ink);border-radius:9px;padding:4px}
+body.editing [data-block] > .blocktools{display:flex}
+.blocktools button{border:0;background:color-mix(in srgb,var(--bg) 18%,transparent);color:var(--bg);min-width:28px;height:26px;border-radius:6px;font-size:13px;font-weight:700;cursor:pointer;line-height:1;padding:0 6px}
+.blocktools button:hover{background:var(--bg);color:var(--ink)}
+.blocktools .grip{cursor:grab}
+.stage > .blocktools{top:6px;right:auto;left:50%;transform:translateX(-50%)}
+.rsz{position:absolute;z-index:11;display:none}
+body.editing [data-block] > .rsz{display:block}
+.rsz.e,.rsz.w{top:12px;bottom:12px;width:10px;cursor:ew-resize}
+.rsz.n,.rsz.s{left:12px;right:12px;height:10px;cursor:ns-resize}
+.rsz.e{right:-5px}.rsz.w{left:-5px}.rsz.n{top:-5px}.rsz.s{bottom:-5px}
+.rsz.c{width:16px;height:16px}
+.rsz.se{right:-7px;bottom:-7px;cursor:nwse-resize}
+.rsz.sw{left:-7px;bottom:-7px;cursor:nesw-resize}
+.rsz.ne{right:-7px;top:-7px;cursor:nesw-resize}
+.rsz.nw{left:-7px;top:-7px;cursor:nwse-resize}
+.rsz::after{content:"";position:absolute;inset:3px;border-radius:3px;background:var(--river);opacity:0;transition:opacity .12s}
+.rsz.c::after{inset:2px;border-radius:50%;background:var(--mint);opacity:.9}
+.rsz:hover::after,.rsz.on::after{opacity:.85}
+body.editing [data-block].sizing{outline:3px solid var(--mint)}
+.sizehint{position:fixed;z-index:75;background:var(--ink);color:var(--bg);font-weight:700;font-size:14px;padding:5px 10px;border-radius:8px;pointer-events:none}
+.lay-h > .plot{flex:1;height:auto;min-height:120px}
+.lay-h .plot.tall{height:auto}
+.editbar{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);z-index:70;display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:14px;background:var(--ink);color:var(--bg);box-shadow:0 20px 50px -20px rgba(0,0,0,.6);font-size:15px;max-width:calc(100vw - 20px);flex-wrap:wrap;justify-content:center}
+.editbar b{font-weight:700}
+.editbar button{border:0;border-radius:9px;padding:8px 13px;font-weight:700;font-size:14px;cursor:pointer;background:color-mix(in srgb,var(--bg) 16%,transparent);color:var(--bg)}
+.editbar button.done{background:var(--mint);color:#04241d}
+.editbar .savechip{display:inline-flex;align-items:center;gap:6px;font-weight:600}
+.editbar .savechip i{width:9px;height:9px;border-radius:50%;background:var(--mint)}
+.editbar .savechip.busy i{background:#E3B057}
+.editbar .savechip.bad i{background:var(--accent)}
+.gate{position:fixed;inset:0;z-index:80;background:color-mix(in srgb,var(--ink) 70%,transparent);display:grid;place-items:center;padding:20px}
+.gate form{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:26px;width:100%;max-width:360px;box-shadow:var(--shadow)}
+.gate h3{font-size:24px;margin-bottom:6px}
+.gate p{color:var(--muted);font-size:15px;margin-bottom:16px}
+.gate input{width:100%;padding:12px 14px;border-radius:9px;border:1px solid var(--line);background:var(--bg);font-size:17px}
+.gate .row{display:flex;gap:10px;margin-top:14px}
+.gate .row button{flex:1;padding:11px;border-radius:9px;border:0;font-weight:700;font-size:15px;cursor:pointer}
+.gate .row .ok{background:var(--ink);color:var(--bg)}
+.gate .row .cancel{background:var(--surface2);color:var(--ink)}
+.gate .err{color:var(--accent);font-weight:600;font-size:14px;min-height:20px;margin-top:8px}
+
 footer{margin-top:40px;color:var(--muted);font-size:14px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 
 @media (max-width:1180px){
@@ -233,8 +282,8 @@ footer{margin-top:40px;color:var(--muted);font-size:14px;display:flex;justify-co
       <div class="partners"><img data-logo="invest" alt="Invest Bangladesh Authority (formerly BIDA)"><span class="sep"></span><img data-logo="adb" alt="Asian Development Bank"><span class="sep"></span><img data-logo="sanem" alt="SANEM"></div>
     </div>
     <div class="login-copy">
-      <h1>Survey of Industries in Bangladesh</h1>
-      <p class="lede">Live Dashboard for Census and Survey</p>
+      <h1 data-edit="login.title">Survey of Industries in Bangladesh</h1>
+      <p class="lede" data-edit="login.lede">Live Dashboard for Census and Survey</p>
     </div>
   </div>
   <div class="login-side">
@@ -283,7 +332,7 @@ footer{margin-top:40px;color:var(--muted);font-size:14px;display:flex;justify-co
       <div class="brand">
         <div class="partners"><img data-logo="invest" alt="Invest Bangladesh Authority (formerly BIDA)"><span class="sep"></span><img data-logo="adb" alt="Asian Development Bank"><span class="sep"></span><img data-logo="sanem" alt="SANEM"></div>
         <div>
-          <h1>Survey of Industries in Bangladesh</h1>
+          <h1 data-edit="app.title">Survey of Industries in Bangladesh</h1>
           <p class="sub" id="dsSub"></p>
         </div>
       </div>
@@ -298,13 +347,13 @@ footer{margin-top:40px;color:var(--muted);font-size:14px;display:flex;justify-co
     </header>
 
     <section id="overview" class="grid">
-      <div class="stage s12" id="stage">
+      <div class="stage s12" id="stage" data-block="map">
         <div class="stage-head">
-          <div class="stage-left"><h3>Submissions by Division</h3>
+          <div class="stage-left"><h3 data-edit="map.title">Submissions by Division</h3>
           <div class="headline">
-            <div class="kpi kpi-top census-only"><p class="lbl">Total Completed Surveys</p><p class="big" id="kAll">0</p></div>
-            <div class="kpi"><p class="lbl">Successful Surveys</p><p class="val" id="kTotal">0</p></div>
-            <div class="kpi census-only"><p class="lbl">Unsuccessful Surveys</p><p class="val" id="kUns">0</p></div>
+            <div class="kpi kpi-top census-only"><p class="lbl" data-edit="kpi.all">Total Completed Surveys</p><p class="big" id="kAll">0</p></div>
+            <div class="kpi"><p class="lbl" data-edit="kpi.ok">Successful Surveys</p><p class="val" id="kTotal">0</p></div>
+            <div class="kpi census-only"><p class="lbl" data-edit="kpi.uns">Unsuccessful Surveys</p><p class="val" id="kUns">0</p></div>
           </div></div>
           <div class="seg dim" role="group" aria-label="Map view"><button data-view="3d" aria-pressed="true">3D</button><button data-view="2d" aria-pressed="false">2D</button></div>
         </div>
@@ -314,24 +363,40 @@ footer{margin-top:40px;color:var(--muted);font-size:14px;display:flex;justify-co
         <div class="legend-bar"><span>Fewer</span> <i></i> <span>More</span></div>
         <div class="drag-hint" id="dragHint">Drag to Turn 360°</div>
       </div>
-      <article class="panel s4 census-only side-panel" id="unsuccessful" data-chart="unsReason"><header><h3>Unsuccessful Surveys</h3><div class="ctrls"><div class="seg ty"><button data-t="bar">Bar</button><button data-t="donut">Donut</button><button data-t="rose">Rose</button></div><div class="seg dim"><button data-d="2d">2D</button><button data-d="3d">3D</button></div></div></header><div class="plot" id="c-unsReason"></div></article>
+      <article class="panel s4 census-only side-panel" id="unsuccessful" data-chart="unsReason" data-block="unsReason"><header><h3 data-edit="chart.unsReason">Unsuccessful Surveys</h3><div class="ctrls"><div class="seg ty"><button data-t="bar">Bar</button><button data-t="donut">Donut</button><button data-t="rose">Rose</button></div><div class="seg dim"><button data-d="2d">2D</button><button data-d="3d">3D</button></div></div></header><div class="plot" id="c-unsReason"></div></article>
     </section>
 
-    <h2 class="sec-title" id="firms">Firm Profile</h2>
+    <h2 class="sec-title" id="firms" data-block="firmsTitle"><span data-edit="sec.firms">Firm Profile</span></h2>
     <section class="grid">
-      <article class="panel s6" data-chart="location"><header><h3>Location Type</h3><div class="ctrls"><div class="seg ty"><button data-t="bar">Bar</button><button data-t="donut">Donut</button><button data-t="rose">Rose</button></div><div class="seg dim"><button data-d="2d">2D</button><button data-d="3d">3D</button></div></div></header><div class="plot tall" id="c-location"></div></article>
-      <article class="panel s6" data-chart="regAuth"><header><h3>Registration Authority</h3><div class="ctrls"><div class="seg ty"><button data-t="bar">Bar</button><button data-t="donut">Donut</button><button data-t="rose">Rose</button></div><div class="seg dim"><button data-d="2d">2D</button><button data-d="3d">3D</button></div></div></header><div class="plot tall" id="c-regAuth"></div></article>
-      <article class="panel s6" data-chart="ownership"><header><h3>Ownership</h3><div class="ctrls"><div class="seg ty"><button data-t="donut">Donut</button><button data-t="bar">Bar</button></div><div class="seg dim"><button data-d="2d">2D</button><button data-d="3d">3D</button></div></div></header><div class="plot tall" id="c-ownership"></div></article>
-      <article class="panel s6" data-chart="production"><header><h3>Production Status</h3><div class="ctrls"><div class="seg ty"><button data-t="donut">Donut</button><button data-t="bar">Bar</button></div><div class="seg dim"><button data-d="2d">2D</button><button data-d="3d">3D</button></div></div></header><div class="plot tall" id="c-production"></div></article>
+      <article class="panel s6" data-chart="location" data-block="location"><header><h3 data-edit="chart.location">Location Type</h3><div class="ctrls"><div class="seg ty"><button data-t="bar">Bar</button><button data-t="donut">Donut</button><button data-t="rose">Rose</button></div><div class="seg dim"><button data-d="2d">2D</button><button data-d="3d">3D</button></div></div></header><div class="plot tall" id="c-location"></div></article>
+      <article class="panel s6" data-chart="regAuth" data-block="regAuth"><header><h3 data-edit="chart.regAuth">Registration Authority</h3><div class="ctrls"><div class="seg ty"><button data-t="bar">Bar</button><button data-t="donut">Donut</button><button data-t="rose">Rose</button></div><div class="seg dim"><button data-d="2d">2D</button><button data-d="3d">3D</button></div></div></header><div class="plot tall" id="c-regAuth"></div></article>
+      <article class="panel s6" data-chart="ownership" data-block="ownership"><header><h3 data-edit="chart.ownership">Ownership</h3><div class="ctrls"><div class="seg ty"><button data-t="donut">Donut</button><button data-t="bar">Bar</button></div><div class="seg dim"><button data-d="2d">2D</button><button data-d="3d">3D</button></div></div></header><div class="plot tall" id="c-ownership"></div></article>
+      <article class="panel s6" data-chart="production" data-block="production"><header><h3 data-edit="chart.production">Production Status</h3><div class="ctrls"><div class="seg ty"><button data-t="donut">Donut</button><button data-t="bar">Bar</button></div><div class="seg dim"><button data-d="2d">2D</button><button data-d="3d">3D</button></div></div></header><div class="plot tall" id="c-production"></div></article>
     </section>
 
 
-    <h2 class="sec-title" id="timeline">Submissions Over Time</h2>
+    <h2 class="sec-title" id="timeline" data-block="timeTitle"><span data-edit="sec.time">Submissions Over Time</span></h2>
     <section class="grid">
-      <article class="panel s12" data-chart="timeline"><header style="justify-content:flex-end"><div class="ctrls"><div class="seg per"><button data-p="daily">Daily</button><button data-p="weekly">Weekly</button><button data-p="monthly">Monthly</button></div><div class="seg ty"><button data-t="line">Line</button><button data-t="bar">Bar</button><button data-t="area">Area</button></div><div class="seg dim"><button data-d="2d">2D</button><button data-d="3d">3D</button></div></div></header><div class="plot tall" id="c-timeline"></div></article>
+      <article class="panel s12" data-chart="timeline" data-block="timeline"><header style="justify-content:flex-end"><div class="ctrls"><div class="seg per"><button data-p="daily">Daily</button><button data-p="weekly">Weekly</button><button data-p="monthly">Monthly</button></div><div class="seg ty"><button data-t="line">Line</button><button data-t="bar">Bar</button><button data-t="area">Area</button></div><div class="seg dim"><button data-d="2d">2D</button><button data-d="3d">3D</button></div></div></header><div class="plot tall" id="c-timeline"></div></article>
     </section>
 
   </main>
+</div>
+
+<div class="editbar" id="editbar" hidden>
+  <b>Editing</b>
+  <span class="savechip" id="saveChip"><i></i><span id="saveText">Saved</span></span>
+  <button id="editReset">Reset layout</button>
+  <button class="done" id="editDone">Done</button>
+</div>
+<div class="gate" id="gate" hidden>
+  <form id="gateForm">
+    <h3>Admin Access</h3>
+    <p>Enter the admin password to edit this dashboard.</p>
+    <input type="password" id="gatePw" autocomplete="off">
+    <p class="err" id="gateErr"></p>
+    <div class="row"><button type="button" class="cancel" id="gateCancel">Cancel</button><button type="submit" class="ok">Unlock</button></div>
+  </form>
 </div>
 
 <script>
@@ -643,7 +708,7 @@ const MapStage = (() => {
 
 /* ===================== CHARTS ===================== */
 const charts = {};
-const chartType = {location:'bar', regAuth:'bar', ownership:'donut', production:'donut', unsReason:'bar', timeline:'line'};
+const chartType = {location:'bar', regAuth:'bar', ownership:'donut', production:'donut', unsReason:'donut', timeline:'line'};
 const chartDim  = {location:'2d',  regAuth:'2d',  ownership:'2d',    production:'2d',    unsReason:'2d',  timeline:'2d'};
 let D = null, U = null, UMODE = 'none';
 
@@ -676,6 +741,18 @@ function categorical2D(block, type, opts){
   if(!block || !block.values || !block.values.reduce((a,b)=>a+b,0)) return emptyOption();
   const pal=palette(), total=block.values.reduce((a,b)=>a+b,0)||1, n=block.labels.length;
   const items=block.labels.map((l,i)=>({name:l, value:block.values[i], itemStyle:{color: (opts.single && type==='bar') ? css(opts.single) : pal[i%pal.length]}}));
+  if(type==='bar' && opts.horizontal) return {
+    textStyle:baseText(), tooltip:tip({trigger:'item', formatter:p=>`${p.name}<br><b>${fmt(p.value)}</b> ${unit} ${pctOf(p.value,total)}`}),
+    graphic: totalBadge(total, unit),
+    grid:{left:6, right:86, top:60, bottom:6, containLabel:true},
+    xAxis:{type:'value', splitNumber:3, splitLine:{lineStyle:{color:css('--line')}}, axisLabel:{color:css('--muted'), fontSize:13, hideOverlap:true, formatter:v=>fmt(v)}},
+    yAxis:{type:'category', inverse:true, data:block.labels, axisLine:{show:false}, axisTick:{show:false},
+      axisLabel:Object.assign(axisName(), {width:150, overflow:'break', lineHeight:16, fontSize:13})},
+    series:[{type:'bar', data:items, barMaxWidth:30, itemStyle:{borderRadius:[0,6,6,0]},
+      label:{show:true, position:'right', fontFamily:FONT, formatter:p=>`{v|${fmt(p.value)}} {p|${pctOf(p.value,total)}}`,
+             rich:{v:{fontSize:14, fontWeight:700, color:css('--ink'), fontFamily:FONT}, p:{fontSize:13, fontWeight:600, color:css('--muted'), fontFamily:FONT}}}}],
+    animationDuration:600,
+  };
   if(type==='bar'){
     const wrapAt = n>3 ? 10 : 22;
     return {
@@ -832,7 +909,7 @@ function timeline3D(tl, type){
 function unsReasonBlock(){ return U && U.reasons ? englishBlock(U.reasons) : null; }
 function unsOption(block, ty, d, opts){
   if(UMODE==='none') return emptyOption('Not Connected Yet', 'Add the Google Sheet link as a GitHub secret and run the Action');
-  opts = Object.assign({unit:'firms'}, opts||{});
+  opts = Object.assign({unit:'firms', horizontal:true}, opts||{});
   return d==='3d' ? categorical3D(block, ty, opts) : categorical2D(block, ty, opts);
 }
 
@@ -863,8 +940,9 @@ function wireToggles(){
   $$('.panel[data-chart]').forEach(panel=>{
     const key=panel.dataset.chart, tys=panel.querySelectorAll('.ty button'), dims=panel.querySelectorAll('.dim button');
     const sync=()=>{ tys.forEach(b=>b.setAttribute('aria-pressed', b.dataset.t===chartType[key])); dims.forEach(b=>b.setAttribute('aria-pressed', b.dataset.d===chartDim[key])); };
-    tys.forEach(b=>b.addEventListener('click',()=>{ chartType[key]=b.dataset.t; sync(); renderChart(key, chartDim[key]==='3d'); }));
-    dims.forEach(b=>b.addEventListener('click',()=>{ if(chartDim[key]===b.dataset.d) return; chartDim[key]=b.dataset.d; sync(); renderChart(key, true); }));
+    const remember = ()=>{ if(!editing) return; const c = LAYOUT.charts[key] || (LAYOUT.charts[key] = {}); c.type = chartType[key]; c.dim = chartDim[key]; markChanged(); };
+    tys.forEach(b=>b.addEventListener('click',()=>{ chartType[key]=b.dataset.t; sync(); renderChart(key, chartDim[key]==='3d'); remember(); }));
+    dims.forEach(b=>b.addEventListener('click',()=>{ if(chartDim[key]===b.dataset.d) return; chartDim[key]=b.dataset.d; sync(); renderChart(key, true); remember(); }));
     sync();
   });
   const pers = $$('.per button');
@@ -901,7 +979,7 @@ function render(d, mode){
   countUp($('#kUns'), uns); countUp($('#kAll'), (d.total||0) + uns);
   MapStage.setData(d.divisions||{});
   Object.keys(chartType).forEach(k=>renderChart(k, true));
-  timelineNote(); unsuccessfulNote(); setStatus();
+  timelineNote(); unsuccessfulNote(); setStatus(); applyLayout();
 }
 
 /* ===================== DATA LOADING ===================== */
@@ -935,9 +1013,9 @@ function syncDatasetUI(){
   $('#stage').classList.toggle('s8', DS==='census'); $('#stage').classList.toggle('s12', DS!=='census');
 }
 async function showDataset(ds){
-  DS = ds; store.set('soi.ds', ds); syncDatasetUI();
+  DS = ds; store.set('soi.ds', ds); syncDatasetUI(); applyLayout();
   const seq = ++loadSeq;
-  const [{d, mode}] = await Promise.all([loadData(ds), ds==='census' ? loadUnsuccessful() : Promise.resolve()]);
+  const [{d, mode}] = await Promise.all([loadData(ds), ds==='census' ? loadUnsuccessful() : Promise.resolve(), loadLayout()]);
   if(seq!==loadSeq) return;
   render(d, mode);
 }
@@ -959,7 +1037,7 @@ async function enterApp(ds){
   if(!started){
     started=true;
     MapStage.init($('#stageCanvas'), $('#stageLabels'));
-    wireToggles();
+    wireToggles(); wireEditor();
     setInterval(async()=>{
       if(MODE==='demo') return;
       const seq=loadSeq;
@@ -980,6 +1058,233 @@ document.addEventListener('click', e=>{
   const db = e.target.closest('.dsseg button'); if(db && db.dataset.ds!==DS){ showDataset(db.dataset.ds); return; }
   const ch = e.target.closest('.choice'); if(ch) enterApp(ch.dataset.ds);
 });
+/* ===================== LAYOUT EDITOR =====================
+   Unlock: hold Ctrl and press 0 then 9. The password is checked by
+   functions/api/layout.js on the server, which saves layout.json to GitHub. */
+const LAYOUT_URL = 'layout.json', LAYOUT_API = '/api/layout';
+const SPANS = [4, 6, 8, 12];
+let LAYOUT = {v:1, text:{}, blocks:{}, charts:{}};
+let editing = false, adminPw = '', saveTimer = null;
+
+async function loadLayout(){
+  try{
+    const l = await getJSON(LAYOUT_URL);
+    if(l && typeof l === 'object') LAYOUT = Object.assign({v:1, text:{}, blocks:{}, charts:{}}, l);
+  }catch(e){ /* nothing saved yet */ }
+  Object.entries(LAYOUT.charts||{}).forEach(([k,c])=>{
+    if(c && chartType[k]!==undefined){ if(c.type) chartType[k]=c.type; if(c.dim) chartDim[k]=c.dim; }
+  });
+}
+function applyLayout(){
+  $$('[data-block]').forEach(el=>{
+    const b = (LAYOUT.blocks||{})[el.dataset.block] || {};
+    el.classList.toggle('lay-hidden', !!b.hidden && !editing);
+    el.style.opacity = (b.hidden && editing) ? .45 : '';
+    el.style.order = b.order!=null ? b.order : '';
+    applySize(el);
+  });
+  $$('[data-edit]').forEach(el=>{
+    if(el.dataset.def===undefined) el.dataset.def = el.textContent;
+    const v = (LAYOUT.text||{})[el.dataset.edit];
+    el.textContent = v!=null ? v : el.dataset.def;
+  });
+  const t = $('[data-edit="app.title"]'); if(t) document.title = t.textContent;
+}
+function setSave(kind, text){
+  const c = $('#saveChip'); c.className = 'savechip' + (kind ? ' '+kind : '');
+  $('#saveText').textContent = text;
+}
+function markChanged(){ clearTimeout(saveTimer); setSave('busy','Saving…'); saveTimer = setTimeout(saveLayout, 1200); }
+async function saveLayout(){
+  try{
+    const res = await fetch(LAYOUT_API, {method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({password: adminPw, layout: LAYOUT})});
+    const out = await res.json().catch(()=>({}));
+    if(!res.ok || !out.ok) throw new Error(out.error || ('HTTP '+res.status));
+    setSave('', 'Saved');
+  }catch(e){ setSave('bad', 'Not saved: ' + e.message); }
+}
+const blockOf = el => el.closest('[data-block]');
+const currentSpan = el => SPANS.find(n=>el.classList.contains('s'+n)) || 12;
+function blockCfg(el){ return LAYOUT.blocks[el.dataset.block] || (LAYOUT.blocks[el.dataset.block] = {}); }
+function addTools(){
+  $$('[data-block]').forEach(el=>{
+    if(el.querySelector(':scope > .blocktools')) return;
+    const movable = el.classList.contains('panel') || el.classList.contains('stage');
+    if(movable) addHandles(el);
+    const t = document.createElement('div'); t.className = 'blocktools';
+    t.innerHTML = (movable ? '<button class="grip" title="Drag to reorder" draggable="true">&#10021;</button>'
+      + '<button data-act="narrow" title="Narrower">&minus;</button><button data-act="wide" title="Wider">+</button>' : '')
+      + '<button data-act="hide" title="Show or hide">&#128065;</button>';
+    el.appendChild(t);
+    const grip = t.querySelector('.grip');
+    if(grip){
+      grip.addEventListener('dragstart', e=>{ e.dataTransfer.setData('text/plain', el.dataset.block); e.dataTransfer.effectAllowed='move'; el.classList.add('dragging'); });
+      grip.addEventListener('dragend', ()=>{ el.classList.remove('dragging'); $$('.drag-over').forEach(x=>x.classList.remove('drag-over')); });
+    }
+  });
+}
+const WIDE = () => window.innerWidth > 1180;      // below this the grid stacks, so custom widths are ignored
+function applySize(el){
+  const b = (LAYOUT.blocks||{})[el.dataset.block] || {};
+  if(b.span && WIDE()) el.style.gridColumn = 'span ' + b.span; else el.style.gridColumn = '';
+  if(b.h){ el.style.height = b.h + 'px'; el.classList.add('lay-h'); }
+  else { el.style.height = ''; el.classList.remove('lay-h'); }
+}
+function setSpan(el, span){
+  span = Math.max(3, Math.min(12, span));
+  blockCfg(el).span = span; applySize(el); markChanged(); resizeCharts();
+}
+function setHeight(el, h){
+  h = Math.max(260, Math.min(1400, Math.round(h)));
+  blockCfg(el).h = h; applySize(el); markChanged(); resizeCharts();
+}
+function resizeCharts(){
+  Object.values(charts).forEach(c=>{ try{ c.resize(); }catch(e){} });
+  MapStage.retheme();
+}
+function addHandles(el){
+  if(el.querySelector(':scope > .rsz')) return;
+  [['e',''],['w',''],['n',''],['s',''],['se','c'],['sw','c'],['ne','c'],['nw','c']].forEach(([dir, extra])=>{
+    const h = document.createElement('div');
+    h.className = 'rsz ' + dir + (extra ? ' ' + extra : '');
+    h.dataset.dir = dir;
+    el.appendChild(h);
+  });
+}
+let sizing = null;
+function startSizing(e){
+  const h = e.target.closest('.rsz'); if(!h || !editing) return;
+  const el = blockOf(h), grid = el.parentElement;
+  const gapPx = parseFloat(getComputedStyle(grid).columnGap) || 20;
+  const colW = (grid.getBoundingClientRect().width - gapPx * 11) / 12;
+  const r = el.getBoundingClientRect();
+  sizing = {el, dir: h.dataset.dir, x: e.clientX, y: e.clientY, colW, gapPx,
+            span: (LAYOUT.blocks[el.dataset.block] || {}).span || Math.max(3, Math.round((r.width + gapPx) / (colW + gapPx))),
+            h: r.height, handle: h};
+  h.classList.add('on'); el.classList.add('sizing');
+  el.setPointerCapture ? el.setPointerCapture(e.pointerId) : null;
+  e.preventDefault(); e.stopPropagation();
+}
+function moveSizing(e){
+  if(!sizing) return;
+  const {el, dir} = sizing;
+  if(WIDE() && (dir.includes('e') || dir.includes('w'))){
+    const dx = (dir.includes('w') ? -1 : 1) * (e.clientX - sizing.x);
+    setSpan(el, sizing.span + Math.round(dx / (sizing.colW + sizing.gapPx)));
+  }
+  if(dir.includes('n') || dir.includes('s')){
+    const dy = (dir.includes('n') ? -1 : 1) * (e.clientY - sizing.y);
+    setHeight(el, sizing.h + dy);
+  }
+  const b = LAYOUT.blocks[el.dataset.block] || {};
+  showHint(e.clientX, e.clientY, `${b.span || '—'} of 12  ·  ${Math.round(el.getBoundingClientRect().height)} px`);
+}
+function endSizing(){
+  if(!sizing) return;
+  sizing.handle.classList.remove('on'); sizing.el.classList.remove('sizing');
+  sizing = null; hideHint(); resizeCharts();
+}
+let hintEl = null;
+function showHint(x, y, text){
+  if(!hintEl){ hintEl = document.createElement('div'); hintEl.className = 'sizehint'; document.body.appendChild(hintEl); }
+  hintEl.textContent = text; hintEl.style.left = (x + 14) + 'px'; hintEl.style.top = (y + 14) + 'px'; hintEl.hidden = false;
+}
+function hideHint(){ if(hintEl) hintEl.hidden = true; }
+function reorder(dragged, target){
+  const grid = target.parentElement;
+  const items = Array.from(grid.querySelectorAll(':scope > [data-block]'));
+  if(!items.includes(dragged) || !items.includes(target)) return;
+  items.sort((a,b)=>(parseInt(a.style.order||0)) - (parseInt(b.style.order||0)));
+  items.splice(items.indexOf(dragged), 1);
+  items.splice(items.indexOf(target), 0, dragged);
+  items.forEach((el,i)=>{ el.style.order = i; blockCfg(el).order = i; });
+  markChanged();
+}
+function wireEditor(){
+  addEventListener('pointerdown', startSizing, true);
+  addEventListener('pointermove', moveSizing);
+  addEventListener('pointerup', endSizing);
+  addEventListener('pointercancel', endSizing);
+  addEventListener('resize', ()=>{ $$('[data-block]').forEach(applySize); });
+  addEventListener('dragover', e=>{
+    if(!editing) return;
+    const t = blockOf(e.target); if(!t) return;
+    e.preventDefault();
+    $$('.drag-over').forEach(x=>x.classList.remove('drag-over'));
+    t.classList.add('drag-over');
+  });
+  addEventListener('drop', e=>{
+    if(!editing) return;
+    e.preventDefault();
+    const id = e.dataTransfer.getData('text/plain'), target = blockOf(e.target);
+    const dragged = document.querySelector('[data-block="'+id+'"]');
+    $$('.drag-over').forEach(x=>x.classList.remove('drag-over'));
+    if(dragged && target && dragged!==target) reorder(dragged, target);
+  });
+  document.addEventListener('click', e=>{
+    if(!editing) return;
+    const btn = e.target.closest('.blocktools button[data-act]'); if(!btn) return;
+    e.preventDefault(); e.stopPropagation();
+    const el = blockOf(btn), act = btn.dataset.act;
+    if(act==='hide'){
+      const b = blockCfg(el); b.hidden = !b.hidden; el.style.opacity = b.hidden ? .45 : ''; markChanged();
+    } else {
+      const b = LAYOUT.blocks[el.dataset.block] || {};
+      const now = b.span || currentSpan(el);
+      setSpan(el, now + (act==='wide' ? 2 : -2));
+    }
+  }, true);
+  document.addEventListener('input', e=>{
+    if(!editing) return;
+    const el = e.target.closest('[data-edit]'); if(!el) return;
+    const v = el.textContent.trim();
+    if(v === el.dataset.def) delete LAYOUT.text[el.dataset.edit]; else LAYOUT.text[el.dataset.edit] = v;
+    if(el.dataset.edit==='app.title') document.title = v;
+    markChanged();
+  });
+  document.addEventListener('keydown', e=>{
+    if(editing && e.key==='Enter' && e.target.closest('[data-edit]')){ e.preventDefault(); e.target.blur(); }
+  });
+  $('#editDone').addEventListener('click', ()=>setEditing(false));
+  $('#editReset').addEventListener('click', async ()=>{
+    if(!confirm('Reset the layout and wording back to the original?')) return;
+    LAYOUT = {v:1, text:{}, blocks:{}, charts:{}};
+    $$('[data-block]').forEach(el=>{ el.style.order=''; el.style.opacity=''; });
+    applyLayout(); await saveLayout(); location.reload();
+  });
+  let zeroAt = 0;                                  // unlock: Ctrl, then 0, then 9
+  addEventListener('keydown', e=>{
+    if(!e.ctrlKey || editing || $('#app').hidden || !$('#gate').hidden) return;
+    if(e.key==='0'){ zeroAt = Date.now(); }
+    else if(e.key==='9' && Date.now()-zeroAt < 2000){ zeroAt = 0; openGate(); }
+  });
+  $('#gateCancel').addEventListener('click', closeGate);
+  $('#gateForm').addEventListener('submit', async e=>{
+    e.preventDefault();
+    const pw = $('#gatePw').value;
+    $('#gateErr').textContent = 'Checking…';
+    try{
+      const res = await fetch(LAYOUT_API, {method:'POST', headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({password: pw, check: true})});
+      const out = await res.json().catch(()=>({}));
+      if(!res.ok || !out.ok) throw new Error(out.error || 'That password is not correct.');
+      adminPw = pw; closeGate(); setEditing(true);
+    }catch(err){ $('#gateErr').textContent = String(err.message || err); }
+  });
+}
+function openGate(){ $('#gate').hidden = false; $('#gatePw').value=''; $('#gateErr').textContent=''; $('#gatePw').focus(); }
+function closeGate(){ $('#gate').hidden = true; }
+function setEditing(on){
+  editing = on;
+  document.body.classList.toggle('editing', on);
+  $('#editbar').hidden = !on;
+  if(on){ addTools(); setSave('', 'Saved'); }
+  $$('[data-edit]').forEach(el=>{ if(on) el.setAttribute('contenteditable','true'); else el.removeAttribute('contenteditable'); el.spellcheck = on; });
+  applyLayout();
+  if(!on){ clearTimeout(saveTimer); saveLayout(); }
+}
+
 function applyTheme(t){
   document.documentElement.setAttribute('data-theme', t);
   LoginScene.retheme();
