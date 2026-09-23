@@ -1,9 +1,9 @@
 {
- "updated_at": "2026-09-23T19:44:20.446899+06:00",
+ "updated_at": "2026-09-23T20:16:14.492707+06:00",
  "source": "kobo",
- "total": 445,
+ "total": 448,
  "divisions": {
-  "Dhaka": 256,
+  "Dhaka": 259,
   "Chattogram": 133,
   "Khulna": 30,
   "Rajshahi": 13,
@@ -28,9 +28,9 @@
    ]
   },
   "values": [
-   230,
+   232,
    207,
-   6,
+   7,
    2
   ]
  },
@@ -57,7 +57,7 @@
   },
   "values": [
    197,
-   140,
+   143,
    68,
    26,
    12,
@@ -79,8 +79,8 @@
    ]
   },
   "values": [
-   388,
-   45,
+   390,
+   46,
    9
   ]
  },
@@ -89,25 +89,25 @@
    "en": [
     "In production",
     "Permanently closed down",
-    "Under implementation",
     "Temporarily closed down",
+    "Under implementation",
     "Not found in the given address",
     "Not implemented"
    ],
    "bn": [
     "উৎপাদন চলমান",
     "স্থায়ীভাবে বন্ধ",
-    "বাস্তবায়নাধীন",
     "সাময়িকভাবে বন্ধ",
+    "বাস্তবায়নাধীন",
     "প্রদত্ত ঠিকানায় পাওয়া যায়নি",
     "বাস্তবায়িত হয়নি"
    ]
   },
   "values": [
    380,
-   35,
+   37,
    14,
-   13,
+   14,
    2,
    1
   ]
@@ -195,7 +195,7 @@
    42,
    49,
    29,
-   22
+   25
   ]
  }
 }
