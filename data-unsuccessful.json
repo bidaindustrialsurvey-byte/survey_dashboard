@@ -1,14 +1,14 @@
 {
- "updated_at": "2026-09-23T10:43:14.178890+06:00",
+ "updated_at": "2026-09-23T11:14:38.449067+06:00",
  "source": "google-sheet",
- "total": 181,
+ "total": 180,
  "reasons": {
   "labels": [
    "Closed",
    "Not Found"
   ],
   "values": [
-   137,
+   136,
    44
   ]
  },
