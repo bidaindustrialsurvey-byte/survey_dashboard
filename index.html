@@ -97,9 +97,9 @@ canvas{display:block}
 .primary:active{transform:translateY(1px)}
 
 /* ---------- CHOOSER ---------- */
-.chooser{position:fixed;inset:0;z-index:40;background:var(--bg);overflow-y:auto;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:56px 24px 110px}
-.chooser .partners{position:fixed;left:clamp(16px,2.4vw,30px);bottom:clamp(16px,2.4vw,30px);--lh:30px;gap:14px;padding:9px 14px;border-radius:11px}
-.choices{display:grid;grid-template-columns:1fr 1fr;gap:34px;width:100%;max-width:1040px}
+.chooser{position:fixed;inset:0;z-index:40;background:var(--bg);overflow-y:auto;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:clamp(28px,5.5vh,60px) 24px 48px}
+.chooser .partners{--lh:clamp(48px,6.4vw,78px);gap:clamp(18px,2vw,26px);padding:16px 26px;border-radius:18px;flex:none}
+.choices{display:grid;grid-template-columns:1fr 1fr;gap:34px;width:100%;max-width:1040px;margin:auto 0;padding-top:clamp(28px,5vh,56px)}
 .choice{border:1px solid var(--line);background:var(--surface);border-radius:28px;min-height:clamp(260px,38vh,340px);cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;font-family:var(--serif);font-weight:700;font-size:clamp(46px,5.6vw,72px);letter-spacing:-.012em;transition:transform .18s,box-shadow .18s,border-color .18s,background .18s;position:relative;overflow:hidden;color:var(--ink)}
 .choice::before{content:"";position:absolute;left:0;top:0;bottom:0;width:10px;background:var(--mint)}
 .choice.survey::before{background:var(--accent)}
@@ -256,7 +256,7 @@ footer{margin-top:40px;color:var(--muted);font-size:14px;display:flex;justify-co
   .choices{grid-template-columns:1fr}
   .choice{min-height:150px}
   .partners{gap:14px;padding:10px 14px}
-  .chooser .partners{--lh:24px;padding:8px 12px;gap:11px}
+  .chooser .partners{--lh:34px;padding:11px 16px;gap:14px;border-radius:14px}
   .choice{min-height:150px;font-size:38px;gap:14px}
   .top > .partners{--lh:28px;padding:7px 12px;gap:11px}
   .form-logos .partners{--lh:28px}
