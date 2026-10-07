@@ -1,13 +1,13 @@
 {
- "updated_at": "2026-10-07T19:20:25.997280+06:00",
+ "updated_at": "2026-10-07T19:48:06.605805+06:00",
  "source": "kobo",
- "total": 980,
+ "total": 985,
  "divisions": {
-  "Dhaka": 702,
+  "Dhaka": 706,
   "Chattogram": 199,
   "Khulna": 32,
   "Rajshahi": 16,
-  "Sylhet": 4,
+  "Sylhet": 5,
   "Barishal": 1,
   "Mymensingh": 8,
   "Rangpur": 17
@@ -17,25 +17,25 @@
    "en": [
     "Outside of the planned industrial area",
     "EPZ Area",
-    "Economic Zone (EZ) Area",
     "Other planned industrial area by government",
+    "Economic Zone (EZ) Area",
     "BSCIC Area",
     "Hi-Tech Park"
    ],
    "bn": [
     "পরিকল্পিত শিল্প এলাকার বাইরে",
     "ইপিজেড এলাকা",
-    "অর্থনৈতিক অঞ্চল (EZ) এলাকা",
     "সরকার কর্তৃক পরিকল্পিত অন্যান্য শিল্প এলাকা",
+    "অর্থনৈতিক অঞ্চল (EZ) এলাকা",
     "BSCIC এলাকা",
     "হাই-টেক পার্ক"
    ]
   },
   "values": [
-   638,
+   642,
    278,
    26,
-   25,
+   26,
    10,
    2
   ]
@@ -62,9 +62,9 @@
    ]
   },
   "values": [
-   411,
+   414,
    269,
-   195,
+   197,
    63,
    38,
    2,
@@ -86,8 +86,8 @@
   },
   "values": [
    624,
-   323,
-   29
+   327,
+   30
   ]
  },
  "production": {
@@ -110,10 +110,10 @@
    ]
   },
   "values": [
-   786,
+   789,
    84,
-   45,
-   41,
+   46,
+   42,
    16,
    7
   ]
@@ -229,7 +229,7 @@
    50,
    51,
    49,
-   16
+   21
   ]
  }
 }
