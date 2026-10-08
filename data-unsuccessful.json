@@ -1,7 +1,7 @@
 {
- "updated_at": "2026-10-08T09:17:06.911491+06:00",
+ "updated_at": "2026-10-08T09:49:11.620581+06:00",
  "source": "google-sheet",
- "total": 705,
+ "total": 717,
  "reasons": {
   "labels": [
    "Closed",
@@ -10,8 +10,8 @@
   ],
   "values": [
    363,
-   285,
-   57
+   295,
+   59
   ]
  },
  "divisions": null,
