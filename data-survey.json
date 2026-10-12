@@ -1,9 +1,9 @@
 {
- "updated_at": "2026-10-12T18:31:01.473740+06:00",
+ "updated_at": "2026-10-12T19:34:03.510769+06:00",
  "source": "kobo",
- "total": 5,
+ "total": 7,
  "divisions": {
-  "Dhaka": 2,
+  "Dhaka": 4,
   "Chattogram": 2,
   "Khulna": 0,
   "Rajshahi": 0,
@@ -16,16 +16,19 @@
   "labels": {
    "en": [
     "EPZ Area",
+    "Outside of the planned industrial area",
     "BSCIC Area",
-    "Outside of the planned industrial area"
+    "Other planned industrial area by government"
    ],
    "bn": [
     "ইপিজেড এলাকা",
+    "পরিকল্পিত শিল্প এলাকার বাইরে",
     "BSCIC এলাকা",
-    "পরিকল্পিত শিল্প এলাকার বাইরে"
+    "সরকার কর্তৃক পরিকল্পিত অন্যান্য শিল্প এলাকা"
    ]
   },
   "values": [
+   2,
    2,
    1,
    1
@@ -43,7 +46,7 @@
    ]
   },
   "values": [
-   3,
+   5,
    2
   ]
  },
@@ -57,22 +60,25 @@
    ]
   },
   "values": [
-   5
+   7
   ]
  },
  "production": {
   "labels": {
    "en": [
     "In production",
-    "Temporarily closed down"
+    "Temporarily closed down",
+    "Under implementation"
    ],
    "bn": [
     "উৎপাদন চলমান",
-    "সাময়িকভাবে বন্ধ"
+    "সাময়িকভাবে বন্ধ",
+    "বাস্তবায়নাধীন"
    ]
   },
   "values": [
-   4,
+   5,
+   1,
    1
   ]
  },
@@ -89,7 +95,7 @@
    0,
    0,
    0,
-   3
+   5
   ]
  }
 }
