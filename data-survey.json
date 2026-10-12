@@ -1,29 +1,32 @@
 {
- "updated_at": "2026-10-12T17:19:07.421643+06:00",
+ "updated_at": "2026-10-12T17:51:43.554027+06:00",
  "source": "kobo",
- "total": 3,
+ "total": 5,
  "divisions": {
-  "Dhaka": 1,
+  "Dhaka": 2,
   "Chattogram": 2,
   "Khulna": 0,
   "Rajshahi": 0,
   "Sylhet": 0,
   "Barishal": 0,
   "Mymensingh": 0,
-  "Rangpur": 0
+  "Rangpur": 1
  },
  "location": {
   "labels": {
    "en": [
     "EPZ Area",
-    "BSCIC Area"
+    "BSCIC Area",
+    "Outside of the planned industrial area"
    ],
    "bn": [
     "ইপিজেড এলাকা",
-    "BSCIC এলাকা"
+    "BSCIC এলাকা",
+    "পরিকল্পিত শিল্প এলাকার বাইরে"
    ]
   },
   "values": [
+   2,
    1,
    1
   ]
@@ -40,8 +43,8 @@
    ]
   },
   "values": [
-   2,
-   1
+   3,
+   2
   ]
  },
  "ownership": {
@@ -54,7 +57,7 @@
    ]
   },
   "values": [
-   3
+   5
   ]
  },
  "production": {
@@ -69,7 +72,7 @@
    ]
   },
   "values": [
-   2,
+   4,
    1
   ]
  },
@@ -86,7 +89,7 @@
    0,
    0,
    0,
-   1
+   3
   ]
  }
 }
