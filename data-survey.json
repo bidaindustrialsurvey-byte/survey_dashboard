@@ -1,10 +1,10 @@
 {
- "updated_at": "2026-10-14T11:04:20.498704+06:00",
+ "updated_at": "2026-10-14T12:00:02.483761+06:00",
  "source": "kobo",
- "total": 18,
+ "total": 19,
  "divisions": {
   "Dhaka": 14,
-  "Chattogram": 2,
+  "Chattogram": 3,
   "Khulna": 0,
   "Rajshahi": 0,
   "Sylhet": 1,
@@ -29,7 +29,7 @@
   },
   "values": [
    13,
-   2,
+   3,
    1,
    1
   ]
@@ -47,7 +47,7 @@
   },
   "values": [
    14,
-   2
+   3
   ]
  },
  "ownership": {
@@ -60,7 +60,7 @@
    ]
   },
   "values": [
-   17
+   18
   ]
  },
  "production": {
@@ -79,7 +79,7 @@
    ]
   },
   "values": [
-   15,
+   16,
    1,
    1,
    1
@@ -102,7 +102,7 @@
    0,
    5,
    10,
-   1
+   2
   ]
  }
 }
