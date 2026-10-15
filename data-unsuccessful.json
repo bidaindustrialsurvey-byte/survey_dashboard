@@ -1,5 +1,5 @@
 {
- "updated_at": "2026-10-15T09:00:28.868616+06:00",
+ "updated_at": "2026-10-15T09:53:32.612528+06:00",
  "source": "google-sheet",
  "total": 824,
  "reasons": {
@@ -9,9 +9,9 @@
    "Rejected"
   ],
   "values": [
-   384,
-   370,
-   70
+   386,
+   374,
+   64
   ]
  },
  "divisions": null,
