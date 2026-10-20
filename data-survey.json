@@ -1,9 +1,9 @@
 {
- "updated_at": "2026-10-20T07:10:59.919299+06:00",
+ "updated_at": "2026-10-20T12:27:00.367938+06:00",
  "source": "kobo",
- "total": 28,
+ "total": 29,
  "divisions": {
-  "Dhaka": 21,
+  "Dhaka": 22,
   "Chattogram": 4,
   "Khulna": 0,
   "Rajshahi": 0,
@@ -48,7 +48,7 @@
    ]
   },
   "values": [
-   21,
+   22,
    3,
    1
   ]
@@ -56,14 +56,17 @@
  "ownership": {
   "labels": {
    "en": [
-    "100% local"
+    "100% local",
+    "100% foreign"
    ],
    "bn": [
-    "১০০% স্থানীয়"
+    "১০০% স্থানীয়",
+    "১০০% বিদেশি"
    ]
   },
   "values": [
-   26
+   26,
+   1
   ]
  },
  "production": {
@@ -72,20 +75,23 @@
     "In production",
     "Temporarily closed down",
     "Under implementation",
-    "Not implemented"
+    "Not implemented",
+    "Not found in the given address"
    ],
    "bn": [
     "উৎপাদন চলমান",
     "সাময়িকভাবে বন্ধ",
     "বাস্তবায়নাধীন",
-    "বাস্তবায়িত হয়নি"
+    "বাস্তবায়িত হয়নি",
+    "প্রদত্ত ঠিকানায় পাওয়া যায়নি"
    ]
   },
   "values": [
    21,
    3,
    2,
-   2
+   2,
+   1
   ]
  },
  "timeline": {
@@ -117,7 +123,7 @@
    1,
    3,
    0,
-   0
+   1
   ]
  }
 }
