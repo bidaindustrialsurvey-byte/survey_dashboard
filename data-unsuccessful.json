@@ -1,7 +1,7 @@
 {
- "updated_at": "2026-10-26T11:23:42.685910+06:00",
+ "updated_at": "2026-10-26T16:21:07.157246+06:00",
  "source": "google-sheet",
- "total": 1026,
+ "total": 1063,
  "reasons": {
   "labels": [
    "Not Found",
@@ -9,9 +9,9 @@
    "Rejected"
   ],
   "values": [
-   488,
-   446,
-   92
+   517,
+   450,
+   96
   ]
  },
  "divisions": null,
