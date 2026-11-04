@@ -1,12 +1,12 @@
 {
- "updated_at": "2026-11-04T10:35:37.019516+06:00",
+ "updated_at": "2026-11-04T15:43:42.808609+06:00",
  "source": "kobo",
- "total": 54,
+ "total": 56,
  "divisions": {
-  "Dhaka": 37,
+  "Dhaka": 38,
   "Chattogram": 6,
   "Khulna": 1,
-  "Rajshahi": 3,
+  "Rajshahi": 4,
   "Sylhet": 1,
   "Barishal": 0,
   "Mymensingh": 0,
@@ -28,7 +28,7 @@
    ]
   },
   "values": [
-   32,
+   34,
    7,
    4,
    2
@@ -50,7 +50,7 @@
    ]
   },
   "values": [
-   39,
+   41,
    6,
    1,
    1
@@ -68,7 +68,7 @@
    ]
   },
   "values": [
-   46,
+   47,
    2
   ]
  },
@@ -79,22 +79,25 @@
     "Temporarily closed down",
     "Not implemented",
     "Not found in the given address",
-    "Under implementation"
+    "Under implementation",
+    "Permanently closed down"
    ],
    "bn": [
     "উৎপাদন চলমান",
     "সাময়িকভাবে বন্ধ",
     "বাস্তবায়িত হয়নি",
     "প্রদত্ত ঠিকানায় পাওয়া যায়নি",
-    "বাস্তবায়নাধীন"
+    "বাস্তবায়নাধীন",
+    "স্থায়ীভাবে বন্ধ"
    ]
   },
   "values": [
    36,
    6,
+   4,
    3,
-   3,
-   2
+   2,
+   1
   ]
  },
  "timeline": {
@@ -156,7 +159,7 @@
    4,
    4,
    5,
-   0
+   2
   ]
  }
 }
