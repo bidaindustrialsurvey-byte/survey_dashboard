@@ -1,7 +1,7 @@
 {
- "updated_at": "2026-11-05T05:28:21.383972+06:00",
+ "updated_at": "2026-11-05T09:40:48.640827+06:00",
  "source": "kobo",
- "total": 59,
+ "total": 60,
  "divisions": {
   "Dhaka": 40,
   "Chattogram": 6,
@@ -10,7 +10,7 @@
   "Sylhet": 1,
   "Barishal": 0,
   "Mymensingh": 0,
-  "Rangpur": 1
+  "Rangpur": 2
  },
  "location": {
   "labels": {
@@ -28,7 +28,7 @@
    ]
   },
   "values": [
-   35,
+   36,
    7,
    4,
    3
@@ -52,7 +52,7 @@
    ]
   },
   "values": [
-   42,
+   43,
    6,
    1,
    1,
@@ -71,7 +71,7 @@
    ]
   },
   "values": [
-   49,
+   50,
    2
   ]
  },
@@ -81,16 +81,16 @@
     "In production",
     "Temporarily closed down",
     "Not implemented",
-    "Not found in the given address",
     "Under implementation",
+    "Not found in the given address",
     "Permanently closed down"
    ],
    "bn": [
     "উৎপাদন চলমান",
     "সাময়িকভাবে বন্ধ",
     "বাস্তবায়িত হয়নি",
-    "প্রদত্ত ঠিকানায় পাওয়া যায়নি",
     "বাস্তবায়নাধীন",
+    "প্রদত্ত ঠিকানায় পাওয়া যায়নি",
     "স্থায়ীভাবে বন্ধ"
    ]
   },
@@ -99,7 +99,7 @@
    6,
    4,
    3,
-   2,
+   3,
    1
   ]
  },
@@ -164,7 +164,7 @@
    4,
    5,
    5,
-   0
+   1
   ]
  }
 }
