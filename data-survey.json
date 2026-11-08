@@ -1,15 +1,15 @@
 {
- "updated_at": "2026-11-08T17:14:54.827889+06:00",
+ "updated_at": "2026-11-08T19:05:20.823160+06:00",
  "source": "kobo",
- "total": 72,
+ "total": 74,
  "divisions": {
-  "Dhaka": 45,
+  "Dhaka": 46,
   "Chattogram": 7,
   "Khulna": 3,
   "Rajshahi": 4,
   "Sylhet": 1,
   "Barishal": 0,
-  "Mymensingh": 1,
+  "Mymensingh": 2,
   "Rangpur": 3
  },
  "location": {
@@ -28,10 +28,10 @@
    ]
   },
   "values": [
-   46,
+   47,
    7,
    4,
-   3
+   4
   ]
  },
  "reg_authority": {
@@ -54,9 +54,9 @@
    ]
   },
   "values": [
-   50,
+   51,
    6,
-   3,
+   4,
    1,
    1,
    1
@@ -74,7 +74,7 @@
    ]
   },
   "values": [
-   60,
+   62,
    2
   ]
  },
@@ -98,7 +98,7 @@
    ]
   },
   "values": [
-   44,
+   46,
    8,
    6,
    3,
@@ -173,7 +173,7 @@
    5,
    0,
    3,
-   5
+   7
   ]
  }
 }
