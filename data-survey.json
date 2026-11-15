@@ -1,9 +1,9 @@
 {
- "updated_at": "2026-11-15T12:15:49.879028+06:00",
+ "updated_at": "2026-11-15T14:19:43.487195+06:00",
  "source": "kobo",
- "total": 122,
+ "total": 126,
  "divisions": {
-  "Dhaka": 69,
+  "Dhaka": 73,
   "Chattogram": 13,
   "Khulna": 5,
   "Rajshahi": 8,
@@ -16,20 +16,20 @@
   "labels": {
    "en": [
     "Outside of the planned industrial area",
-    "EPZ Area",
     "BSCIC Area",
+    "EPZ Area",
     "Other planned industrial area by government"
    ],
    "bn": [
     "পরিকল্পিত শিল্প এলাকার বাইরে",
-    "ইপিজেড এলাকা",
     "BSCIC এলাকা",
+    "ইপিজেড এলাকা",
     "সরকার কর্তৃক পরিকল্পিত অন্যান্য শিল্প এলাকা"
    ]
   },
   "values": [
-   76,
-   8,
+   79,
+   9,
    8,
    8
   ]
@@ -54,7 +54,7 @@
    ]
   },
   "values": [
-   78,
+   82,
    11,
    6,
    3,
@@ -76,7 +76,7 @@
    ]
   },
   "values": [
-   99,
+   103,
    2,
    1
   ]
@@ -101,10 +101,10 @@
    ]
   },
   "values": [
-   67,
+   69,
    13,
    12,
-   8,
+   10,
    3,
    2
   ]
@@ -190,7 +190,7 @@
    16,
    0,
    3,
-   2
+   6
   ]
  }
 }
