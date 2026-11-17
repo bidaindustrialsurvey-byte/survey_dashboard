@@ -25,3 +25,7 @@ Change a password with `python scripts/make_user.py`.
 - Share the sheet as "Anyone with the link: Viewer" and paste its normal link into the secret.
   The link stays inside GitHub; the website only receives counts.
 - To count a different column, set UNSUCCESSFUL_REASON_COLUMN in the workflow step's env.
+- One tab per status (current setup): UNSUCCESSFUL_TABS in the workflow lists each status and its tab's gid,
+  e.g. `Not Found=448647754; Closed=960313769`. Each status is the number of firms (rows with a Company Name)
+  in its tab. To add a status, add a tab and add `Name=gid` to the list; the gid is the `#gid=...` part of the
+  tab's address. Remove UNSUCCESSFUL_TABS to go back to counting one "Status" column.
