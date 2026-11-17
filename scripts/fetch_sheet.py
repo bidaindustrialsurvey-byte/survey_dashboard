@@ -12,6 +12,13 @@ Environment variables (GitHub Secrets):
        (sheet shared as "Anyone with the link: Viewer")
      - a "Publish to web" CSV link (...pub?gid=...&output=csv)
 Optional:
+  UNSUCCESSFUL_TABS              one tab per status, e.g.
+                                 "Not Found=448647754; Closed=960313769; Rejected=66619800"
+                                 (status name = tab's gid, from the #gid=... part of the tab's address).
+                                 When set, each status is counted as the number of firms in its tab
+                                 (rows with a Company Name), in the order listed.
+                                 When not set, one tab is read and its reason column is counted.
+  UNSUCCESSFUL_COMPANY_COLUMN    header of the firm column used to count rows in tab mode (default: first header containing "company")
   UNSUCCESSFUL_REASON_COLUMN     header of the reason column   (default: "Status", else the first header containing "reason")
   UNSUCCESSFUL_DIVISION_COLUMN   header of the division column (default: first header containing "division")
 """
@@ -108,19 +115,75 @@ def aggregate(rows, reason_col, division_col):
     }
 
 
-def main():
-    url = os.environ.get("UNSUCCESSFUL_SHEET_URL")
-    if not url:
-        print("[unsuccessful] UNSUCCESSFUL_SHEET_URL not set, skipping.")
-        return
-    r = requests.get(csv_url(url), timeout=60)
+def read_csv(url):
+    r = requests.get(url, timeout=60)
     if r.status_code != 200 or "text/html" in r.headers.get("content-type", ""):
         sys.exit("[unsuccessful] Could not read the sheet as CSV. Share it as 'Anyone with the link: Viewer', "
                  "or use File > Share > Publish to web > CSV, and check the link in the secret.")
     r.encoding = "utf-8"
     reader = csv.DictReader(io.StringIO(r.text))
     headers = [h for h in (reader.fieldnames or []) if h]
-    rows = list(reader)
+    return headers, list(reader)
+
+
+def parse_tabs(spec):
+    """'Not Found=123; Closed=456' -> [('Not Found', '123'), ('Closed', '456')]"""
+    tabs = []
+    for part in re.split(r"[;\n]", spec):
+        if not part.strip():
+            continue
+        name, sep, gid = part.rpartition("=")
+        if not sep or not name.strip() or not gid.strip().isdigit():
+            sys.exit(f"[unsuccessful] Could not read '{part.strip()}' in UNSUCCESSFUL_TABS. Use: Status name=gid")
+        tabs.append((clean(name), gid.strip()))
+    return tabs
+
+
+def count_tabs(url, tabs):
+    """Count firms in each status tab (one tab per status)."""
+    m = re.search(r"/spreadsheets/d/([a-zA-Z0-9_-]+)", url)
+    if not m:
+        sys.exit("[unsuccessful] UNSUCCESSFUL_TABS needs the sheet's normal link (…/spreadsheets/d/<ID>/…) in the secret.")
+    base = f"https://docs.google.com/spreadsheets/d/{m.group(1)}/export?format=csv&gid="
+    wanted = os.environ.get("UNSUCCESSFUL_COMPANY_COLUMN")
+    labels, values = [], []
+    for name, gid in tabs:
+        headers, rows = read_csv(base + gid)
+        col = find_column(headers, wanted, "company")
+        if col:
+            n = sum(1 for r in rows if clean(r.get(col, "")))
+        else:   # no firm column: count rows that are not blank
+            n = sum(1 for r in rows if any(clean(v) for v in r.values() if isinstance(v, str)))
+        print(f"[unsuccessful] tab {name!r} (gid {gid}): {n} firms, counted on column {col!r}")
+        labels.append(name)
+        values.append(n)
+    return {
+        "updated_at": datetime.now(TZ).isoformat(),
+        "source": "google-sheet",
+        "total": sum(values),
+        "reasons": {"labels": labels, "values": values},
+        "divisions": None,
+        "unplaced": 0,
+    }
+
+
+def write(data):
+    with open(OUT, "w", encoding="utf-8") as fh:
+        json.dump(data, fh, ensure_ascii=False, indent=1)
+    print(f"[unsuccessful] wrote data-unsuccessful.json: {data['total']} firms")
+    print(f"  reasons: {dict(zip(data['reasons']['labels'], data['reasons']['values']))}")
+
+
+def main():
+    url = os.environ.get("UNSUCCESSFUL_SHEET_URL")
+    if not url:
+        print("[unsuccessful] UNSUCCESSFUL_SHEET_URL not set, skipping.")
+        return
+    tabs_spec = os.environ.get("UNSUCCESSFUL_TABS", "").strip()
+    if tabs_spec:
+        write(count_tabs(url, parse_tabs(tabs_spec)))
+        return
+    headers, rows = read_csv(csv_url(url))
     reason_col = find_column(headers, os.environ.get("UNSUCCESSFUL_REASON_COLUMN") or ("Status" if any(h.strip().lower() == "status" for h in headers) else None), "reason")
     if not reason_col:
         print(f"[unsuccessful] No 'Status' or 'Reason' column. Columns in the sheet: {headers}")
@@ -130,10 +193,7 @@ def main():
     print(f"[unsuccessful] columns in sheet: {headers}")
     print(f"[unsuccessful] reason column: {reason_col!r}, division column: {division_col!r}")
     data = aggregate(rows, reason_col, division_col)
-    with open(OUT, "w", encoding="utf-8") as fh:
-        json.dump(data, fh, ensure_ascii=False, indent=1)
-    print(f"[unsuccessful] wrote data-unsuccessful.json: {data['total']} firms")
-    print(f"  reasons: {dict(zip(data['reasons']['labels'], data['reasons']['values']))}")
+    write(data)
     if data["divisions"]:
         print(f"  divisions: {data['divisions']} (no division: {data['unplaced']})")
 
