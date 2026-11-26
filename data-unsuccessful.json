@@ -1,7 +1,7 @@
 {
- "updated_at": "2026-11-26T10:56:17.945189+06:00",
+ "updated_at": "2026-11-26T11:04:03.973449+06:00",
  "source": "google-sheet",
- "total": 1200,
+ "total": 1273,
  "reasons": {
   "labels": [
    "Not Found",
@@ -10,10 +10,10 @@
    "Delayed"
   ],
   "values": [
-   593,
-   316,
-   125,
-   166
+   677,
+   317,
+   121,
+   158
   ]
  },
  "divisions": null,
