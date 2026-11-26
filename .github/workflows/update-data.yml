@@ -46,7 +46,8 @@ jobs:
         env:
           UNSUCCESSFUL_SHEET_URL: ${{ secrets.UNSUCCESSFUL_SHEET_URL }}
           # one tab per status: "Status name=gid" (gid = the #gid=... part of the tab's address)
-          UNSUCCESSFUL_TABS: "Not Found=448647754; Closed=960313769; Rejected=66619800; Delayed=1620812123"
+          UNSUCCESSFUL_TABS: "Not Found=0; Closed=1603948731; Rejected=737380960; Delayed=800423796"
+          UNSUCCESSFUL_COMPANY_COLUMN: "Firm Name"
         run: python scripts/fetch_sheet.py
 
       - name: Commit data files if they changed
